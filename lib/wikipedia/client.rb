@@ -12,6 +12,7 @@ module Wikipedia
     def find( title, options = {} )
       title = Url.new(title).title rescue title
       page = Page.new( request_page( title, options ) )
+      return nil unless page.page
       while follow_redirects and page.redirect?
         page = Page.new( request_page( page.redirect_title, options ) )
       end
